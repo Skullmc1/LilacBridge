@@ -1,0 +1,36 @@
+.mainLoaderContainer {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: #0f0f0f;
+  -webkit-backdrop-filter: blur(5px);
+  backdrop-filter: blur(5px);
+  z-index: 1000;
+}
+
+.loaderContent {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2rem;
+}
+
+.loader {
+  width: 150px;
+  height: 150px;
+}
+
+.title {
+  font-size: clamp(2rem, 5vw, 3.5rem);
+  margin: 0;
+  background: linear-gradient(45deg, #f0f0f0, #a0a0a0);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  font-family: monospace;
+  font-weight: bold;
+} 

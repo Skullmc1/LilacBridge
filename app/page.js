@@ -1,11 +1,32 @@
-import ProjectTile from './components/ProjectTile'
+'use client'
 
-export const metadata = {
-  title: 'In Profectum',
-  description: 'A collection of innovative projects',
-}
+import { useState, useEffect } from 'react'
+import { motion } from 'framer-motion'
+import ProjectTile from './components/ProjectTile'
+import MainLoader from './components/MainLoader'
 
 export default function Home() {
+  const [isLoading, setIsLoading] = useState(true)
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setIsLoading(false)
+    }, 2000)
+
+    return () => clearTimeout(timer)
+  }, [])
+
+  const container = {
+    hidden: { opacity: 0 },
+    show: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.3,
+        delayChildren: 0.3
+      }
+    }
+  }
+
   const projects = [
     { 
       name: "Nebula", 
@@ -36,23 +57,10 @@ export default function Home() {
       name: "Prism", 
       id: 6, 
       desc: "Interactive color theory laboratory for designers and artists" 
-    },
-    { 
-      name: "errorpages", 
-      id: 7, 
-      desc: "Test various error pages",
-      isErrorTile: true,
-      errors: [
-        { code: 401, desc: "Unauthorized" },
-        { code: 403, desc: "Forbidden" },
-        { code: 404, desc: "Not Found" },
-        { code: 500, desc: "Internal Server Error" },
-        { code: 502, desc: "Bad Gateway" },
-        { code: 503, desc: "Service Unavailable" },
-        { code: 504, desc: "Gateway Timeout" }
-      ]
     }
   ];
+
+  if (isLoading) return <MainLoader />
 
   return (
     <main style={{
@@ -60,7 +68,7 @@ export default function Home() {
       backgroundColor: '#0f0f0f',
       color: '#f0f0f0',
       fontFamily: 'monospace',
-      padding: '2rem',
+      padding: '4rem 2rem',
       margin: 0,
       boxSizing: 'border-box',
       userSelect: 'none',
@@ -70,7 +78,7 @@ export default function Home() {
     }}>
       <h1 style={{
         fontSize: 'clamp(2rem, 5vw, 3.5rem)',
-        marginBottom: 'clamp(2rem, 5vh, 3rem)',
+        marginBottom: 'clamp(4rem, 10vh, 6rem)',
         textAlign: 'center',
         fontWeight: 'bold',
         background: 'linear-gradient(45deg, #f0f0f0, #a0a0a0)',
@@ -80,18 +88,27 @@ export default function Home() {
         In Profectum
       </h1>
       
-      <div style={{
-        display: 'grid',
-        gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))',
-        gap: 'clamp(1rem, 3vw, 2rem)',
-        padding: '1rem',
-        maxWidth: '1400px',
-        margin: '0 auto'
-      }}>
-        {projects.map(project => (
-          <ProjectTile key={project.id} project={project} />
+      <motion.div 
+        variants={container}
+        initial="hidden"
+        animate="show"
+        style={{
+          display: 'flex',
+          flexDirection: 'column',
+          gap: 'clamp(4rem, 8vh, 6rem)',
+          padding: '2rem',
+          maxWidth: '800px',
+          margin: '0 auto'
+        }}
+      >
+        {projects.map((project, index) => (
+          <ProjectTile 
+            key={project.id} 
+            project={project} 
+            index={index}
+          />
         ))}
-      </div>
+      </motion.div>
     </main>
   )
 }
