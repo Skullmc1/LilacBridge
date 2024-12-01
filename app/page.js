@@ -36,6 +36,21 @@ export default function Home() {
       name: "Prism", 
       id: 6, 
       desc: "Interactive color theory laboratory for designers and artists" 
+    },
+    { 
+      name: "errorpages", 
+      id: 7, 
+      desc: "Test various error pages",
+      isErrorTile: true,
+      errors: [
+        { code: 401, desc: "Unauthorized" },
+        { code: 403, desc: "Forbidden" },
+        { code: 404, desc: "Not Found" },
+        { code: 500, desc: "Internal Server Error" },
+        { code: 502, desc: "Bad Gateway" },
+        { code: 503, desc: "Service Unavailable" },
+        { code: 504, desc: "Gateway Timeout" }
+      ]
     }
   ];
 

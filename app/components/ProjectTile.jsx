@@ -9,7 +9,9 @@ export default function ProjectTile({ project }) {
   const router = useRouter()
 
   const handleClick = () => {
-    router.push(`/projects/${project.name.toLowerCase()}`)
+    if (!project.isErrorTile) {
+      router.push(`/projects/${project.name.toLowerCase()}`)
+    }
   }
 
   return (
@@ -18,7 +20,7 @@ export default function ProjectTile({ project }) {
       className={`${styles.tile} ${styles[project.name.toLowerCase()]}`}
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
-      whileHover={{ scale: 1.03 }}
+      whileHover={!project.isErrorTile ? { scale: 1.03 } : {}}
     >
       <TileBackground project={project} />
       <div className={styles.tileContent}>
@@ -38,14 +40,33 @@ export default function ProjectTile({ project }) {
         }}>
           {project.desc}
         </p>
-        <div style={{
-          fontSize: '0.8rem',
-          opacity: 0.5,
-          marginTop: 'auto',
-          paddingTop: '1rem'
-        }}>
-          Click to view →
-        </div>
+        {project.isErrorTile ? (
+          <div className={styles.errorButtons}>
+            {project.errors.map((error) => (
+              <motion.button
+                key={error.code}
+                onClick={(e) => {
+                  e.stopPropagation()
+                  router.push(`/error-test/${error.code}`)
+                }}
+                className={styles.errorButton}
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+              >
+                {error.code}
+              </motion.button>
+            ))}
+          </div>
+        ) : (
+          <div style={{
+            fontSize: '0.8rem',
+            opacity: 0.5,
+            marginTop: 'auto',
+            paddingTop: '1rem'
+          }}>
+            Click to view →
+          </div>
+        )}
       </div>
     </motion.div>
   )
