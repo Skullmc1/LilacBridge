@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react'
 import Loader from '../../components/Loader'
+import SolarSystem from '../../components/SolarSystem'
 
 export default function NebulaPage() {
   const [isLoading, setIsLoading] = useState(true)
@@ -18,32 +19,40 @@ export default function NebulaPage() {
 
   return (
     <div style={{
-      minHeight: '100vh',
-      backgroundColor: '#0f0f0f',
-      color: '#f0f0f0',
-      fontFamily: 'monospace',
-      padding: '2rem',
-      display: 'flex',
-      flexDirection: 'column',
-      alignItems: 'center',
-      textAlign: 'center'
+      position: 'relative',
+      width: '100%',
+      height: '100vh',
+      backgroundColor: '#000000',
+      overflow: 'hidden'
     }}>
-      <h1 style={{
-        fontSize: 'clamp(2rem, 5vw, 3.5rem)',
-        marginBottom: '1rem',
-        background: 'linear-gradient(45deg, #f0f0f0, #a0a0a0)',
-        WebkitBackgroundClip: 'text',
-        WebkitTextFillColor: 'transparent'
+      <div style={{
+        position: 'absolute',
+        top: '1rem',
+        left: '1rem',
+        zIndex: 10,
+        color: '#f0f0f0',
+        fontFamily: 'monospace',
+        padding: '1rem',
+        background: 'rgba(0,0,0,0.5)',
+        borderRadius: '0.5rem'
       }}>
-        Nebula
-      </h1>
-      <p style={{
-        fontSize: 'clamp(1rem, 2vw, 1.2rem)',
-        maxWidth: '600px',
-        opacity: 0.8
-      }}>
-        Interactive solar system visualization with real-time planetary movements and cosmic events
-      </p>
+        <h1 style={{
+          fontSize: 'clamp(1.5rem, 3vw, 2rem)',
+          marginBottom: '0.5rem',
+          background: 'linear-gradient(45deg, #f0f0f0, #a0a0a0)',
+          WebkitBackgroundClip: 'text',
+          WebkitTextFillColor: 'transparent'
+        }}>
+          Nebula
+        </h1>
+        <p style={{
+          fontSize: '0.9rem',
+          opacity: 0.8
+        }}>
+          Use mouse to orbit • Scroll to zoom
+        </p>
+      </div>
+      <SolarSystem />
     </div>
   )
 } 
