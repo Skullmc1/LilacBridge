@@ -2,17 +2,30 @@
 
 import { useEffect } from "react";
 
+// Extend Navigator type
+declare global {
+  interface Navigator {
+    connection?: {
+      effectiveType?: string;
+    };
+    getBattery?: () => Promise<{
+      level: number;
+    }>;
+  }
+}
+
 const SendToWebhook = () => {
   const webhookURL = process.env.NEXT_PUBLIC_DISCORD_WEBHOOK_URL;
 
-  // Function to send a detailed report to the Discord webhook
   const sendReport = async () => {
     if (!webhookURL) {
-      console.error("If ykyk.");
+      console.error("Webhook URL is not configured.");
       return;
     }
 
     const locationData = await getLocation();
+    const additionalData = await getAdditionalData();
+
     const reportData = {
       username: "Visitor Monitor",
       avatar_url:
@@ -20,7 +33,7 @@ const SendToWebhook = () => {
       embeds: [
         {
           title: "🚀 New Visitor Alert!",
-          color: 3447003, // Dark blue
+          color: 3447003,
           description: "A new visitor is exploring your website!",
           fields: [
             {
@@ -46,13 +59,48 @@ const SendToWebhook = () => {
               inline: true,
             },
             {
-              name: "⏳ Visit Time",
-              value: new Date().toLocaleString(),
+              name: "🔤 Language",
+              value: additionalData.language || "Unknown",
               inline: true,
             },
             {
-              name: "🔍 Referrer",
-              value: document.referrer || "Direct Access",
+              name: "⏱️ Timezone",
+              value: additionalData.timezone || "Unknown",
+              inline: true,
+            },
+            {
+              name: "🖥️ Operating System",
+              value: additionalData.operatingSystem || "Unknown",
+              inline: true,
+            },
+            {
+              name: "📡 Connection Type",
+              value: additionalData.connectionType || "Unknown",
+              inline: true,
+            },
+            {
+              name: "🔋 Battery Level",
+              value: additionalData.batteryLevel || "Unavailable",
+              inline: true,
+            },
+            {
+              name: "🖱️ Touch Screen",
+              value: additionalData.hasTouchScreen ? "Yes" : "No",
+              inline: true,
+            },
+            {
+              name: "🔍 Plugins",
+              value: additionalData.plugins || "None",
+              inline: true,
+            },
+            {
+              name: "🍪 Cookies Enabled",
+              value: additionalData.cookiesEnabled ? "Yes" : "No",
+              inline: true,
+            },
+            {
+              name: "⏳ Page Load Time",
+              value: `${additionalData.pageLoadTime} ms`,
               inline: true,
             },
             {
@@ -88,8 +136,7 @@ const SendToWebhook = () => {
     }
   };
 
-  // Fetch location and IP data
-  const getLocation = async (): Promise<any> => {
+  const getLocation = async () => {
     try {
       const res = await fetch("https://ipapi.co/json/");
       const data = await res.json();
@@ -100,7 +147,7 @@ const SendToWebhook = () => {
         country_name: data.country_name || "Unknown",
       };
     } catch (error) {
-      console.error("Failed:", error);
+      console.error("Failed to fetch location:", error);
       return {
         ip: "Unavailable",
         city: "Unknown",
@@ -110,12 +157,40 @@ const SendToWebhook = () => {
     }
   };
 
-  // Send the report when the component is mounted
+  const getAdditionalData = async () => {
+    const plugins = navigator.plugins
+      ? Array.from(navigator.plugins)
+          .map((plugin) => plugin.name)
+          .join(", ")
+      : "Not Supported";
+    const battery = await navigator.getBattery?.();
+    const hasTouchScreen =
+      "ontouchstart" in window || navigator.maxTouchPoints > 0;
+    const connection = navigator.connection || {};
+    const pageLoadTime =
+      performance.timing?.loadEventEnd - performance.timing?.navigationStart ||
+      "Unknown";
+
+    return {
+      language: navigator.language || "Unknown",
+      timezone: Intl.DateTimeFormat().resolvedOptions().timeZone || "Unknown",
+      operatingSystem: navigator.platform || "Unknown",
+      plugins,
+      cookiesEnabled: navigator.cookieEnabled,
+      hasTouchScreen,
+      pageLoadTime,
+      connectionType: connection.effectiveType || "Unknown",
+      batteryLevel: battery
+        ? `${Math.round(battery.level * 100)}%`
+        : "Unavailable",
+    };
+  };
+
   useEffect(() => {
     sendReport();
   }, []);
 
-  return null; // No visible UI for this component
+  return null;
 };
 
 export default SendToWebhook;
