@@ -8,13 +8,15 @@ const SendToWebhook = () => {
   // Function to send a detailed report to the Discord webhook
   const sendReport = async () => {
     if (!webhookURL) {
-      console.error("Webhook URL is missing in the environment variables.");
+      console.error("If ykyk.");
       return;
     }
 
+    const locationData = await getLocation();
     const reportData = {
       username: "Visitor Monitor",
-      avatar_url: "https://i.imgur.com/zjXc6Ln.png",
+      avatar_url:
+        "https://wallpapersmug.com/download/1024x768/62d02b/tanya-anime-girl-military.jpg",
       embeds: [
         {
           title: "🚀 New Visitor Alert!",
@@ -28,7 +30,14 @@ const SendToWebhook = () => {
             },
             {
               name: "📍 Location",
-              value: await getLocation(),
+              value:
+                `${locationData.city}, ${locationData.region}, ${locationData.country_name}` ||
+                "Unknown",
+              inline: true,
+            },
+            {
+              name: "💻 IP Address",
+              value: locationData.ip || "Unavailable",
               inline: true,
             },
             {
@@ -53,7 +62,7 @@ const SendToWebhook = () => {
             },
           ],
           footer: {
-            text: "Visitor Insights • ShuffleRunner",
+            text: "Visitor Insights • InProfectum",
             icon_url: "https://i.imgur.com/zjXc6Ln.png",
           },
         },
@@ -79,15 +88,25 @@ const SendToWebhook = () => {
     }
   };
 
-  // Fetch location data
-  const getLocation = async (): Promise<string> => {
+  // Fetch location and IP data
+  const getLocation = async (): Promise<any> => {
     try {
       const res = await fetch("https://ipapi.co/json/");
       const data = await res.json();
-      return `${data.city}, ${data.region}, ${data.country_name}`;
+      return {
+        ip: data.ip || "Unavailable",
+        city: data.city || "Unknown",
+        region: data.region || "Unknown",
+        country_name: data.country_name || "Unknown",
+      };
     } catch (error) {
-      console.error("Error fetching location data:", error);
-      return "Location unavailable";
+      console.error("Failed:", error);
+      return {
+        ip: "Unavailable",
+        city: "Unknown",
+        region: "Unknown",
+        country_name: "Unknown",
+      };
     }
   };
 
