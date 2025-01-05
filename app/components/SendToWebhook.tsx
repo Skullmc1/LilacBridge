@@ -190,7 +190,7 @@ const SendToWebhook = () => {
       };
 
       await sendReport("log", logData);
-    }, 30000);
+    }, 3000);
 
     return () => clearInterval(loggingInterval);
   }, []);
