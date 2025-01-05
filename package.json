@@ -17,10 +17,14 @@
     "react": "latest",
     "react-dom": "latest",
     "react-leaflet": "^4.2.1",
+    "react-spring": "^9.7.5",
     "three": "^0.162.0"
   },
   "devDependencies": {
+    "@types/react": "^19.0.2",
+    "@types/react-dom": "^19.0.2",
     "css-loader": "^7.1.2",
-    "style-loader": "^4.0.0"
+    "style-loader": "^4.0.0",
+    "typescript": "^5.7.2"
   }
 }
