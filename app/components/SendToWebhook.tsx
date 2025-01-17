@@ -22,7 +22,6 @@ const SendToWebhook = () => {
 
   const sendReport = async (type: "visitor" | "log", data: any) => {
     if (!webhookURL) {
-      console.error("Webhook URL is not configured.");
       return;
     }
 
@@ -66,11 +65,7 @@ const SendToWebhook = () => {
       if (!response.ok) {
         throw new Error(`Error: ${response.statusText}`);
       }
-
-      console.log("Report successfully sent to the Discord webhook.");
-    } catch (error) {
-      console.error("Failed to send report:", error);
-    }
+    } catch (error) {}
   };
 
   const fetchData = async () => {
