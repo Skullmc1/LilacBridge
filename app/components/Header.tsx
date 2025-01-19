@@ -26,17 +26,17 @@ export default function Header({ currentPage }: { currentPage: string }) {
       initial="hidden"
       animate="visible"
       variants={slideInFromTop}
-      className="sticky top-0 z-50 backdrop-blur-md bg-background/50 border-b border-primary/10"
+      className="fixed top-0 left-0 w-full z-50 backdrop-blur-md bg-background/50 border-b border-primary/10"
     >
       <div className="container mx-auto flex justify-between items-center p-4">
         {/* Logo with Flower2 icon */}
         <Link href="/" className="flex items-center gap-2 group">
           <motion.div whileHover={wiggleAnimation}>
-            <Flower2 className="w-8 h-8 text-accent group-hover:text-secondary transition-colors" />
+            <Flower2 className="w-8 h-8 text-accent group-hover:text-white transition-colors" />
           </motion.div>
           <motion.h1
             whileHover={wiggleAnimation}
-            className="text-2xl font-bold group-hover:text-secondary transition-colors"
+            className="text-2xl font-bold text-accent group-hover:text-white transition-colors"
           >
             LilacBridge
           </motion.h1>
@@ -48,8 +48,8 @@ export default function Header({ currentPage }: { currentPage: string }) {
             <Link
               href="/"
               className={`flex items-center gap-2 ${
-                currentPage === "home" ? "text-secondary" : "text-primary"
-              } hover:text-secondary transition-colors`}
+                currentPage === "home" ? "text-secondary" : "text-accent"
+              } hover:text-white transition-colors`}
             >
               <House className="w-6 h-6" />
               <span>Home</span>
@@ -59,8 +59,8 @@ export default function Header({ currentPage }: { currentPage: string }) {
             <Link
               href="/projects"
               className={`flex items-center gap-2 ${
-                currentPage === "projects" ? "text-secondary" : "text-primary"
-              } hover:text-secondary transition-colors`}
+                currentPage === "projects" ? "text-secondary" : "text-accent"
+              } hover:text-white transition-colors`}
             >
               <LibraryBig className="w-6 h-6" />
               <span>Projects</span>
@@ -70,8 +70,8 @@ export default function Header({ currentPage }: { currentPage: string }) {
             <Link
               href="/about"
               className={`flex items-center gap-2 ${
-                currentPage === "about" ? "text-secondary" : "text-primary"
-              } hover:text-secondary transition-colors`}
+                currentPage === "about" ? "text-secondary" : "text-accent"
+              } hover:text-white transition-colors`}
             >
               <CircleUserRound className="w-6 h-6" />
               <span>About</span>
@@ -81,8 +81,8 @@ export default function Header({ currentPage }: { currentPage: string }) {
             <Link
               href="/contact"
               className={`flex items-center gap-2 ${
-                currentPage === "contact" ? "text-secondary" : "text-primary"
-              } hover:text-secondary transition-colors`}
+                currentPage === "contact" ? "text-secondary" : "text-accent"
+              } hover:text-white transition-colors`}
             >
               <PhoneCall className="w-6 h-6" />
               <span>Contact</span>
