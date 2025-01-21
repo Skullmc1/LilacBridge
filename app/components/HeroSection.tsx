@@ -1,11 +1,10 @@
-"use client"; // This is a Client Component
+"use client";
 
 import { motion } from "framer-motion";
 import { ArrowRight } from "lucide-react";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 
-// Lilac SVG Component
 const LilacSVG = ({ style }: { style: React.CSSProperties }) => {
   return (
     <motion.div
