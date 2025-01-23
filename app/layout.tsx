@@ -8,7 +8,6 @@ import ClientLayout from "./ClientLayout"; // New Client Component
 
 const inter = Inter({ subsets: ["latin"] });
 
-// Metadata for the website
 export const metadata: Metadata = {
   title: "LilacBridge",
   description:

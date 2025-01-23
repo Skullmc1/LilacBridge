@@ -12,6 +12,11 @@ export default function ClientLayout({
 }) {
   const pathname = usePathname();
 
+  // Skip ClientLayout for the skillsheet project
+  if (pathname.startsWith("/skillsheet")) {
+    return <>{children}</>;
+  }
+
   // Determine the current page based on the pathname
   const currentPage =
     pathname === "/"
