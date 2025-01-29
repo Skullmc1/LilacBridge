@@ -1,23 +1,14 @@
-# Testing Stuff
+# Another Portfolio (Dropped)
 
-My personal workspace for trying out random stuff and experimenting with code.
+Made this to test some animations stuff
 
 ## What's Here
 
-- Random experiments
-- Code snippets I'm testing
-- Things I'm learning
+- LilacBridge Portfolio
+- A lot of unwanted animations
+- Weird ah colors
 - Stuff that might break
 
-## Notes to Self
+## The latest or so commit is broken but i won't try fixing it since im bored
 
-- Keep experiments in separate folders
-- Comment what I was trying to do
-- Date stuff if needed
-- Delete things that didn't work out
-
-## TODO
-
-- [ ] Add more experiments
-- [ ] Test that thing I saw on YouTube
-- [ ] Try out the new framework
+This is a dropped project.
