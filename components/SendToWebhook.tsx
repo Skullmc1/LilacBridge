@@ -2,7 +2,6 @@
 
 import { useEffect, useState } from "react";
 
-// Extend Navigator type for non-standard properties
 declare global {
   interface Navigator {
     connection?: {
@@ -35,7 +34,7 @@ const SendToWebhook = () => {
             type === "visitor"
               ? "🚀 New Visitor Alert!"
               : "🔍 System Log Event",
-          color: type === "visitor" ? 3447003 : 16711680, // Blue for visitor, red for logs
+          color: type === "visitor" ? 3447003 : 16711680,
           description:
             type === "visitor"
               ? "A new visitor is exploring your website!"
@@ -72,7 +71,6 @@ const SendToWebhook = () => {
     const locationData = await fetchLocation();
     const additionalData = await fetchAdditionalData();
 
-    // Compile full visitor report
     const visitorData = {
       "💻 IP Address": locationData.ip,
       "📍 Location": `${locationData.city}, ${locationData.region}, ${locationData.country_name}`,
@@ -173,7 +171,6 @@ const SendToWebhook = () => {
   useEffect(() => {
     fetchData();
 
-    // Periodic logging every 30 seconds
     const loggingInterval = setInterval(async () => {
       const logData = {
         "⚠️ Error Logging": "No errors detected",
@@ -190,7 +187,7 @@ const SendToWebhook = () => {
     return () => clearInterval(loggingInterval);
   }, []);
 
-  return null; // No visible UI
+  return null;
 };
 
 export default SendToWebhook;

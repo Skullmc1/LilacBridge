@@ -1,34 +1,3 @@
-/* app/globals.css */
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-
-/* Light Theme (Default) */
-.light {
-    --primary: #3b1e54;
-    --secondary: #9b7ebd;
-    --accent: #d4bee4;
-    --background: #eeeeee;
-}
-
-/* Purple Theme */
-.purple {
-    --primary: #6d28d9;
-    --secondary: #8b5cf6;
-    --accent: #c4b5fd;
-    --background: #f5f3ff;
-}
-
-/* Dark Theme */
-.dark {
-    --primary: #d8b4fe;
-    --secondary: #a78bfa;
-    --accent: #7c3aed;
-    --background: #1e1e1e;
-}
-
-/* Apply theme colors */
-body {
-    background-color: var(--background);
-    color: var(--primary);
-}
