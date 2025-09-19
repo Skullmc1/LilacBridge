@@ -2,36 +2,40 @@
 
 import { useRef, useEffect, useState } from 'react';
 import { gsap } from 'gsap';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { 
-  Typescript, 
-  React, 
-  Nextjs, 
-  Threejs, 
-  GitBranch, 
-  Css3, 
-  Database, 
-  Figma,
-  Code2,
-  Cpu
-} from 'lucide-react';
+  faJs, 
+  faReact, 
+  faNodeJs, 
+  faGitAlt, 
+  faCss3Alt, 
+  faFigma,
+  faRust,
+  faPython,
+  faDocker,
+  faAws
+} from '@fortawesome/free-brands-svg-icons';
+import { faDatabase, faCube } from '@fortawesome/free-solid-svg-icons';
 
 interface Skill {
-  icon: React.ComponentType<any>;
+  icon: any;
   name: string;
   color: string;
 }
 
 const skills: Skill[] = [
-  { icon: Typescript, name: 'TypeScript', color: '#3178C6' },
-  { icon: React, name: 'React', color: '#61DAFB' },
-  { icon: Nextjs, name: 'Next.js', color: '#000000' },
-  { icon: Threejs, name: 'Three.js', color: '#000000' },
-  { icon: GitBranch, name: 'Git', color: '#F05032' },
-  { icon: Css3, name: 'CSS/SCSS', color: '#1572B6' },
-  { icon: Database, name: 'Databases', color: '#336791' },
-  { icon: Figma, name: 'Figma', color: '#F24E1E' },
-  { icon: Code2, name: 'WebGL', color: '#990000' },
-  { icon: Cpu, name: 'Rust', color: '#000000' }
+  { icon: faJs, name: 'JavaScript', color: '#F7DF1E' },
+  { icon: faReact, name: 'React', color: '#61DAFB' },
+  { icon: faNodeJs, name: 'Node.js', color: '#339933' },
+  { icon: faCube, name: 'Three.js', color: '#000000' },
+  { icon: faGitAlt, name: 'Git', color: '#F05032' },
+  { icon: faCss3Alt, name: 'CSS/SCSS', color: '#1572B6' },
+  { icon: faDatabase, name: 'Databases', color: '#336791' },
+  { icon: faFigma, name: 'Figma', color: '#F24E1E' },
+  { icon: faRust, name: 'Rust', color: '#000000' },
+  { icon: faPython, name: 'Python', color: '#3776AB' },
+  { icon: faDocker, name: 'Docker', color: '#2496ED' },
+  { icon: faAws, name: 'AWS', color: '#FF9900' }
 ];
 
 export default function SkillSphere() {
@@ -90,24 +94,21 @@ export default function SkillSphere() {
         className="absolute inset-0 transform-style-3d"
         style={{ transformStyle: 'preserve-3d' }}
       >
-        {skills.map((skill, index) => {
-          const Icon = skill.icon;
-          return (
-            <div
-              key={skill.name}
-              className="skill-icon absolute w-12 h-12 flex items-center justify-center cursor-pointer transform-style-3d"
-              style={{ transformStyle: 'preserve-3d' }}
-              onMouseMove={(e) => handleMouseMove(e, skill.name)}
-              onMouseLeave={handleMouseLeave}
-            >
-              <Icon 
-                size={28} 
-                className="transition-all duration-300 hover:scale-125"
-                style={{ color: skill.color }}
-              />
-            </div>
-          );
-        })}
+        {skills.map((skill, index) => (
+          <div
+            key={skill.name}
+            className="skill-icon absolute w-12 h-12 flex items-center justify-center cursor-pointer transform-style-3d"
+            style={{ transformStyle: 'preserve-3d' }}
+            onMouseMove={(e) => handleMouseMove(e, skill.name)}
+            onMouseLeave={handleMouseLeave}
+          >
+            <FontAwesomeIcon 
+              icon={skill.icon} 
+              className="text-2xl transition-all duration-300 hover:scale-125"
+              style={{ color: skill.color }}
+            />
+          </div>
+        ))}
       </div>
 
       {hoveredSkill && (
